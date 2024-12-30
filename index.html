@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazing Website</title>
+    <style>
+        /* CSS Section */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7eb3, #8fd3f4);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #ff4081;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 100px);
+            text-align: center;
+        }
+
+        main h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            margin: 1rem;
+            font-size: 1rem;
+            color: white;
+            background-color: #ff4081;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff70a3;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .gallery img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .creative-list {
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .creative-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .creative-list li {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 0.5rem 0;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML Section -->
+    <header>
+        <h1>Welcome to the Amazing Website</h1>
+    </header>
+    <main>
+        <h2>Click the button below to see the magic!</h2>
+        <button class="btn" onclick="showMessage()">Show Message</button>
+
+        <section class="gallery">
+            <img src="https://via.placeholder.com/200x150" alt="Placeholder Image 1">
+            <img src="https://via.placeholder.com/200x150" alt="Placeholder Image 2">
+            <img src="https://via.placeholder.com/200x150" alt="Placeholder Image 3">
+        </section>
+
+        <section class="creative-list">
+            <h3>Creative Ideas to Explore:</h3>
+            <ul>
+                <li>Learn a new language</li>
+                <li>Start a daily journaling habit</li>
+                <li>Explore a new hobby</li>
+                <li>Take a nature walk</li>
+                <li>Try cooking a new recipe</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        &copy; 2024 Amazing Website | Built with ❤️
+    </footer>
+    <script>
+        // JavaScript Section
+        function showMessage() {
+            const message = document.createElement('div');
+            message.textContent = "You're amazing! Keep shining!";
+            message.style.position = 'fixed';
+            message.style.bottom = '20px';
+            message.style.left = '50%';
+            message.style.transform = 'translateX(-50%)';
+            message.style.background = '#ff4081';
+            message.style.color = 'white';
+            message.style.padding = '1rem 2rem';
+            message.style.borderRadius = '25px';
+            message.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+            message.style.fontSize = '1.2rem';
+            message.style.animation = 'fadeOut 4s forwards';
+
+            document.body.appendChild(message);
+
+            // Remove the message after the animation ends
+            setTimeout(() => {
+                message.remove();
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
