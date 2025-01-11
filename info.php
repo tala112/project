@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "maya";
-$dbname = "dictionary";
+$password = "password";
+$dbname = "dictionary_app";
 //create con
 $conn = new mysqli($servername, $username, $password, $dbname);
 //if con secsesful
