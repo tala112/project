@@ -1,16 +1,28 @@
 <?php
-$host = getenv('DB_HOST') ?: '127.0.0.1'; // عنوان MySQL
-$db   = 'dictionary_app';                 // اسم قاعدة البيانات
-$user = 'root';                          // اسم المستخدم
-$pass = 'password';                      // كلمة المرور
-$port = '3306';                          // المنفذ الافتراضي
-
-// إنشاء اتصال
-$conn = new mysqli($host, $user, $pass, $db, $port);
-
-// فحص الاتصال
+$servername = "127.0.0.1";
+$username = "root";
+$password = "password";
+$dbname = "dictionary_app";
+//create con
+$conn = new mysqli($servername, $username, $password, $dbname);
+//if con secsesful
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("sorry Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully!";
+
+if (isset($_GET['word'])) {
+    $word = $conn->real_escape_string($_GET['word']);
+//serch word
+    $sql = "SELECT machine_word FROM words WHERE input_word='$word'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        echo $row['machine_word'];
+    } else {
+        echo "Sorry Word not found";
+    }
+}
+
+$conn->close();
 ?>
