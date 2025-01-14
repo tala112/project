@@ -7,7 +7,8 @@ $dbname = "dictionary_app";
 $conn = new mysqli($servername, $username, $password, $dbname);
 //if con secsesful
 if ($conn->connect_error) {
-    $conn = new mysqli("192.168.88.12", $username, $password, $dbname);
+    $servername ="192.168.88.12";
+    $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error)
     {die("sorry Connection failed: " . $conn->connect_error);}
 }
