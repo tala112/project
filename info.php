@@ -7,10 +7,7 @@ $dbname = "dictionary_app";
 $conn = new mysqli($servername, $username, $password, $dbname);
 //if con secsesful
 if ($conn->connect_error) {
-    $servername ="172.17.0.2";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error)
-    {die("sorry Connection failed: " . $conn->connect_error);}
+    die("sorry Connection failed: " . $conn->connect_error);
 }
 
 if (isset($_GET['word'])) {
