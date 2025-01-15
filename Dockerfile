@@ -1,21 +1,14 @@
-# الخطوة 1: استخدام صورة أساسية
-FROM php:8.2-apache
+# Start from a base image that includes PHP
+FROM php:7.4-apache
 
-# الخطوة 2: تثبيت متطلبات إضافية (إذا لزم الأمر)
-RUN docker-php-ext-install mysqli pdo pdo_mysql && \
-    apt-get update && apt-get install -y git unzip
+# Install MySQL client
+RUN apt-get update && apt-get install -y mysql-client
 
-# الخطوة 3: نسخ ملفات المشروع إلى المسار الافتراضي في Apache
-COPY . /var/www/html
+# Install other dependencies if needed
+RUN docker-php-ext-install mysqli
 
-# الخطوة 4: إعداد الصلاحيات
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+# Copy project files into the container
+COPY . /var/www/html/
 
-# الخطوة 5: تضمين ملف Database.sql (التعامل معه يتم في أمر docker run وليس هنا)
-# لا حاجة لنسخه هنا لأننا نستخدمه كـ volume أثناء تشغيل الحاوية
-
-# الخطوة 6: فتح المنفذ الافتراضي
+# Expose the port the app will run on
 EXPOSE 80
-
-# الخطوة 7: أمر التشغيل الافتراضي
-CMD ["apache2-foreground"]
