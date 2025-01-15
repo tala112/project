@@ -1,33 +1,21 @@
-# اختر صورة من Ubuntu أو Debian كأساس
-FROM ubuntu:20.04
+# الخطوة 1: استخدام صورة أساسية
+FROM php:8.2-apache
 
-# تثبيت الحزم الأساسية
-RUN apt-get update && apt-get install -y \
-    apache2 \
-    php \
-    php-mysql \
-    mysql-server \
-    git \
-    curl \
-    && apt-get clean
+# الخطوة 2: تثبيت متطلبات إضافية (إذا لزم الأمر)
+RUN docker-php-ext-install mysqli pdo pdo_mysql && \
+    apt-get update && apt-get install -y git unzip
 
-# إعداد Apache لتشغيله على المنفذ 80
+# الخطوة 3: نسخ ملفات المشروع إلى المسار الافتراضي في Apache
+COPY . /var/www/html
+
+# الخطوة 4: إعداد الصلاحيات
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
+# الخطوة 5: تضمين ملف Database.sql (التعامل معه يتم في أمر docker run وليس هنا)
+# لا حاجة لنسخه هنا لأننا نستخدمه كـ volume أثناء تشغيل الحاوية
+
+# الخطوة 6: فتح المنفذ الافتراضي
 EXPOSE 80
 
-# إعداد Apache للعمل مع PHP
-COPY ./www /var/www/html/
-
-# نسخ ملفات تكوين Apache
-COPY ./apache2.conf /etc/apache2/apache2.conf
-
-# تكوينات MySQL
-COPY ./my.cnf /etc/mysql/my.cnf
-
-# إعدادات MySQL (اختياري - يمكن تعديل كلمة المرور/الإعدادات حسب الحاجة)
-RUN service mysql start && mysql -e "CREATE DATABASE IF NOT EXISTS my_database;"
-RUN service mysql start && mysql -e "CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';"
-RUN service mysql start && mysql -e "GRANT ALL PRIVILEGES ON my_database.* TO 'root'@'%';"
-RUN service mysql start && mysql -e "FLUSH PRIVILEGES;"
-
-# بدء Apache و MySQL عند تشغيل الحاوية
-CMD service mysql start && apachectl -D FOREGROUND
+# الخطوة 7: أمر التشغيل الافتراضي
+CMD ["apache2-foreground"]
