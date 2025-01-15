@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     if ($conn->connect_error)
     die("sorry Connection failed: " . $conn->connect_error);
 }
-
+//comment
 if (isset($_GET['word'])) {
     $word = $conn->real_escape_string($_GET['word']);
 //serch word
