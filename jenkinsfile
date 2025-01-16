@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://your-repo-url.git'
+                git 'https://github.com/tala112/project.git'
             }
         }
         stage('Build Docker Image') {
