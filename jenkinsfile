@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://your-repo-url.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker-compose -f docker-compose.yml build'
+            }
+        }
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker-compose -f docker-compose.yml up -d'
+            }
+        }
+        stage('Compare and Pull Changes') {
+            steps {
+                script {
+                    def localCommit = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+                    def remoteCommit = sh(script: 'git ls-remote origin -h refs/heads/master', returnStdout: true).split()[0]
+                    if (localCommit != remoteCommit) {
+                        echo "Changes detected, pulling updates..."
+                        sh 'git pull origin master'
+                        sh 'docker-compose -f docker-compose.yml up -d'
+                    } else {
+                        echo "No changes detected."
+                    }
+                }
+            }
+        }
+    }
+}

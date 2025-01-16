@@ -1,14 +1,14 @@
-# Start from a base image that includes PHP
-FROM php:7.4-apache
+# Use PHP-Apache base image
+FROM php:8.1-apache
 
-# Install MySQL client
-RUN apt-get update && apt-get install -y mysql-client
+# Install required PHP extensions
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Install other dependencies if needed
-RUN docker-php-ext-install mysqli
-
-# Copy project files into the container
+# Copy project files
 COPY . /var/www/html/
 
-# Expose the port the app will run on
+# Set working directory
+WORKDIR /var/www/html/
+
+# Expose port 80
 EXPOSE 80
