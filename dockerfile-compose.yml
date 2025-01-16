@@ -1,33 +1,40 @@
-# Use PHP-Apache base image
+version: '3.8'
+
 services:
-    web:
-     build:
-       context: .
-       dockerfile: Dockerfile
-     volumes: 
-       - ./site:/var/www/html
-     ports:
-       - "80:80"
-     depends_on:
-       - db
-  
-    db:
-      image: mysql
-      restart: always
-      volumes:
-       - db:/var/lib/mysql
-      environment:
-        MYSQL_ROOT_PASSWORD: 123
-  
-    phpmyadmin:
-      image: phpmyadmin
-      restart: always
-      ports:
-        - 8080:80
-      environment:
-        - PMA_ARBITRARY=1
-      depends_on:
-       -db
-        
+  php:
+    image: php:8.1-apache
+    container_name: php-container
+    ports:
+      - "8081:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./database.sql:/tmp/database.sql # تضمين ملف SQL في الحاوية
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: dictionary_app
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql # استيراد قاعدة البيانات عند التشغيل
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-container
+    restart: always
+    ports:
+      - "8082:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: password
+    depends_on:
+      - mysql
+
 volumes:
-   db:
+  mysql_data:
