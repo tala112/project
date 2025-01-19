@@ -1,6 +1,6 @@
 <?php
 $servername = "127.0.0.1";
-$username = "maya";
+$username = "root";
 $password = "maya";
 $dbname = "dictionary";
 //create con
