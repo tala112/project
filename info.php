@@ -1,7 +1,7 @@
 <?php
-$servername = "127.0.0.1";
+$servername = "db";
 $username = "root";
-$password = "password";
+$password = "root_password";
 $dbname = "dictionary_app";
 //create con
 $conn = new mysqli($servername, $username, $password, $dbname);
