@@ -17,7 +17,7 @@
 
 --
 -- Table structure for table `words`
---
+---- حذف الجدول إذا كان موجودًا مسبقًا لضمان عدم وجود تعارض
 
 DROP TABLE IF EXISTS `words`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
