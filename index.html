@@ -112,7 +112,7 @@
     <script>
         function fetchWord() {
             const word = document.getElementById('word').value;
-
+// ماذا يفعل: يحصل على الكلمة التي أدخلها المستخدم في حقل الإدخال.
             fetch(`info.php?word=${word}`)
                 .then(response => response.text())
                 .then(data => {
@@ -122,6 +122,8 @@
                     console.error(err);
                     document.getElementById('result').innerText = 'Error fetching data';
                 });
+                   // ماذا يفعل: يرسل طلبًا إلى ملف `info.php` مع الكلمة المدخلة، ثم يعرض النتيجة في الفقرة ذات المعرف `result`. إذا حدث خطأ، يتم عرض رسالة خطأ.
+      
         }
     </script>
 </body>

@@ -26,6 +26,6 @@ if (isset($_GET['word'])) {
         echo "Sorry Word not found";
     }
 }
-//teeeeeeeeest
+//close connect
 $conn->close();
 ?>

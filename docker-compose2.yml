@@ -1,8 +1,8 @@
-version: '3.8'
+version: '3.8' #version Docker Compose
 
 services:
   php:
-    image: php:8.1-apache
+    image: php:8.1-apache 
     container_name: php-container
     ports:
       - "8081:80"
@@ -37,3 +37,7 @@ services:
 
 volumes:
   mysql_data:
+
+  #note if i want to turn docker-compose up -d
+#if i want stoped docker-compose down
+
